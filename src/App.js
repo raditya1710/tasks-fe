@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { useInterval } from "./utils";
+import ProgressBar from "./ProgressBar";
+import { Text } from "./Text";
+import "./App.css";
 
 function App() {
+  const dateStart = "08 Aug 2022 07:00:00 GMT+7";
+  const dateEnd = "02 Sep 2022 17:00:00 GMT+7";
+
+  const timestampStart = Date.parse(dateStart);
+  const timestampEnd = Date.parse(dateEnd);
+
+  const [now, setNow] = useState(new Date().getTime());
+
+  useInterval(() => {
+    setNow(new Date().getTime());
+  }, 40);
+
+  const percentage = Math.min(
+    100,
+    ((now - timestampStart) / (timestampEnd - timestampStart)) * 100
+  );
+  const percentageFloat = percentage.toFixed(6);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="textContainer">
+        <div className="startContainer">
+          <Text title={`Start: ${dateStart}`} />
+        </div>
+        <div className="endContainer">
+          <Text title={`End: ${dateEnd}`} />
+        </div>
+      </div>
+      <ProgressBar completed={percentageFloat} />
     </div>
   );
 }
