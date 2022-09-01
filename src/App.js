@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   const dateStart = "08 Aug 2022 14:00:00 GMT+7";
-  const dateEnd = "02 Sep 2022 12:00:00 GMT+7";
+  const dateEnd = "02 Sep 2022 18:00:00 GMT+7";
 
   const timestampStart = Date.parse(dateStart);
   const timestampEnd = Date.parse(dateEnd);
